@@ -1,6 +1,10 @@
+MEAN includes the following frameworks Mongodb, Express, Angular & Node
 # MeanCourse
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
+The project is a messaging system application. that an generate messages with text and images.
+
+
 
 ## Development server
 
