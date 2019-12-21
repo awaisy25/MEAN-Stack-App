@@ -1,0 +1,26 @@
+ <!--mat spinner ngif based on is loading value-->
+ <mat-spinner *ngIf="isLoading"></mat-spinner>
+ <!--if conditional statment by sing ngif-->
+<mat-accordion multi='true' *ngIf="posts.length > 0 && !isLoading">
+  <!--Structural Derivatives-->
+ <mat-expansion-panel *ngFor="let post of posts">
+   <div class="post-image"> <!--binding to get the image path from typescript -->
+     <img [src]="post.imagePath" [alt]="post.title">
+   </div>
+  <mat-expansion-panel-header>
+    <!--Calling variable through string interpolation-->
+    {{ post.title }}
+  </mat-expansion-panel-header>
+  <p>{{ post.content }}</p>
+  <mat-action-row>
+    <!-- setting router link on edit to send to post-create as a edit page-->
+    <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+    <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+  </mat-action-row>
+</mat-expansion-panel>
+</mat-accordion>
+<!--paginator markup to create a selection of number of posts to show at a time-->
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerpage" [pageSizeOptions]="pageSizeOptions" (page)="onChangePage($event)"
+*ngIf="posts.length > 0"></mat-paginator>
+<!-- else conditione since its outside the selected tag-->
+<p class='info-text mat-body-1' *ngIf="posts.length <= 0 && !isLoading">No Posts added yet</p>
