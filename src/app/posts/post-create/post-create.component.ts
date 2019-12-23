@@ -23,7 +23,7 @@ export class PostCreateComponent implements OnInit {
   // property for when on submitted it shows the spinner wheel
   isLoading = false;
   form: FormGroup;
-  imagePreview: string;
+  imagePreview: string | ArrayBuffer;
   private mode = 'create';
   private postId: string;
   // using event emitter to share data between components output allows listening from outside

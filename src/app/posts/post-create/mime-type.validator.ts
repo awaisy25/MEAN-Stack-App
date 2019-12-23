@@ -16,7 +16,7 @@ export const mimeType = (control: AbstractControl): Promise<{[key: string]: any}
     // listen on load event and perform an action
     fileReader.addEventListener('loadend', () => {
       // crreating a new array with 8 byte int
-      const arr = new Uint8Array(fileReader.result).subarray(0, 4);
+      const arr = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4);
       // looping through the array and converting to hexadecimal string
       let header = '';
       let isValid = false;
