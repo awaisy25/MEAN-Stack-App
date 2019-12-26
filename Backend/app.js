@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const path = require("path");
 
 const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
 
 
 // assigning app to express is in chare of incoming messages and outputting messages
@@ -37,7 +38,7 @@ app.use((req,res, next) => {
 
 //using the route navigation from post routes, putting path in as arguement
 app.use("/api/posts", postsRoutes);
-
+app.use("/api/user", userRoutes);
 
 //exporting these features by exporting the app, the features come with it
 module.exports = app;
