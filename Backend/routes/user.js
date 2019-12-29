@@ -31,6 +31,7 @@ router.post("/signup", (req, res, next) => {
 });
 //creating a Jason web token for SPA authentication
 router.post("/login", (req, res, next) => {
+  let fetchUser; //setting a variable for user so it can be used in all then blocks
   //first validate if email exists usign find in database
   User.findOne({ email: req.body.email })
   .then(user => {
@@ -39,6 +40,7 @@ router.post("/login", (req, res, next) => {
         message: "Auth failed"
       });
     }
+    fetchedUser = user;
     //matching hash value to see if the passcode is the users passcode
     return bcrypt.compare(req.body.password, user.password)
   }) //promise after authorization to see if it worked or not
@@ -50,8 +52,11 @@ router.post("/login", (req, res, next) => {
     }
     //creating the json web token through sign method with email & user id as input data
     // this token will be sent back to the user for authentication
-    const token = jwt.sign({email: user.email, userId: user._id}, 'secret_this_should_be_longer',
+    const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 'secret_this_should_be_longer',
     {expiresIn: "1h"}); //expires in give the duration for how long this token last till it expires
+    res.status(200).json({
+      token: token
+    });
   })
   .catch(err => {
     return res.status(401).json({

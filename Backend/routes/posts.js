@@ -3,6 +3,8 @@ const express = require('express');
 // multer is for getting incoming files
 const multer = require("multer");
 const router = express.Router();
+//custom built middleare to allow access for the post/edit features in this program
+const checkAuth = require("../middleware/check-auth");
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -34,7 +36,8 @@ const storage = multer.diskStorage({
 router.post("")
 //same as app.post, app.get, but using router name instead
 //router post is middleware for dealing wiht post requests
-router.post("", multer({storage: storage}).single('image'), (req,res, next)=> { //pass in multer as the function
+router.post("", checkAuth, //checkauth is the self made function to see if auser has token
+multer({storage: storage}).single('image'), (req,res, next)=> { //pass in multer as the function
   //get url of the server from protocol and create the full url
   const url = req.protocol + '://' + req.get('host');
   //requesting the mongoose model from Post model
@@ -58,7 +61,8 @@ router.post("", multer({storage: storage}).single('image'), (req,res, next)=> { 
   //everyhting is ok and one resource for 200
 });
   // updating value through put request
-  router.put("/:id", multer({ storage: storage }).single('image'), (req, res, next) => {
+  router.put("/:id", checkAuth,
+  multer({ storage: storage }).single('image'), (req, res, next) => {
     //check if the file exists in the post list then store the url with the new file name
     let imagePath = req.body.imagePath; //if it does then it got it from the upload
     if(req.file) {
@@ -119,8 +123,8 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-//creating the delete feature
-router.delete("/:id", (req,res,next) => {
+//creating the delete feature. needs autorization to delete
+router.delete("/:id", checkAuth, (req,res,next) => {
   //using mongoose query to delete selected object from database
  Post.deleteOne({ _id: req.params.id }).then(result => {
   console.log(result);

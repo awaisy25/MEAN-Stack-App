@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { PageEvent } from '@angular/material';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -25,11 +26,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   postsPerpage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
+  userIsAuthenticated = false;
   private postsSub: Subscription;
 
   postService: PostsService;
+
+  private authStatusSub: Subscription;
  // use constructor to get instance of the PostService class from post.service.ts
-  constructor(public postsService: PostsService) {
+  constructor(public postsService: PostsService, private authService: AuthService) {
   }
   // ng on init calls get posts from Post.services to get the list items
   ngOnInit() {
@@ -42,6 +46,13 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.totalPosts = postData.postCount;
     this.posts = postData.posts;
+    });
+    // getting authorization value
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    // subscribing to authorization status to whether to show or not show the edit/delete button
+    this.authStatusSub = this.authService.getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
     });
   }
   // creating the delete function
@@ -63,5 +74,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   // custome cleanup when instance is destroyed
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }

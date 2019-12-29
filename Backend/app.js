@@ -29,7 +29,8 @@ mongoose.connect('mongodb+srv://awais:dragonballz1@mstackcluster-hwzch.mongodb.n
 app.use((req,res, next) => {
   //creating a set header to create a request for access control
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers",
+  "Origin, X-Requested-With, Content-Type, Accept, Authorization");
  //header for different http requests
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
 

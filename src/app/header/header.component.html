@@ -2,14 +2,17 @@
   <span><a routerLink="/">My Messages</a></span>
   <span class="space"></span>
   <ul>
-    <li> <!--header tab that uses angular routing to route to create post page-->
+    <li *ngIf="userIsAuthenticated"> <!--header tab that uses angular routing to route to create post page-->
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
     </li>
-    <li> <!--header tab that uses angular routing to route to login page-->
+    <li *ngIf="!userIsAuthenticated"> <!--header tab that uses angular routing to route to login page-->
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
     </li>
-    <li> <!--header tab that uses angular routing to route to sign up page-->
+    <li *ngIf="!userIsAuthenticated"> <!--header tab that uses angular routing to route to sign up page-->
       <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+    </li>
+    <li *ngIf="userIsAuthenticated"> <!--button to Logout after signing in-->
+      <button mat-button (click)="onLogOut()">LogOut </button>
     </li>
   </ul>
 </mat-toolbar>
