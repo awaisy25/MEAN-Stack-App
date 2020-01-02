@@ -27,12 +27,14 @@ export class PostsService {
           title: post.title,
           content: post.content,
           id: post._id,
-          imagePath: post.imagePath
+          imagePath: post.imagePath,
+          creator: post.creator
         }; // returning the current count of the database
       }), maxPosts: postData.maxPosts};
     }))
     // the pipe will output the tranformed data into observable
     .subscribe((transformedPostData) => { // using obersvable subscribe to emit the data
+      console.log(transformedPostData);
       this.posts = transformedPostData.posts;
       // will send the data by accessing the javascript object properties
       this.postsUpdated.next({ posts: [...this.posts], postCount: transformedPostData.maxPosts});
@@ -47,7 +49,7 @@ export class PostsService {
 // get post for edit page not from REST Api
   getPost(id: string) {
     // returning by using get request on http and making it a observable
-    return this.http.get<{_id: string, title: string, content: string, imagePath: string }>
+    return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string }>
     ('http://localhost:3000/api/posts/' + id);
   }
 
@@ -84,7 +86,8 @@ export class PostsService {
         title: title,
         // tslint:disable-next-line:object-literal-shorthand
         content: content,
-        imagePath: image
+        imagePath: image,
+        creator: null
       };
     }
 

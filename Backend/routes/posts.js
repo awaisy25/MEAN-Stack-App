@@ -44,8 +44,9 @@ multer({storage: storage}).single('image'), (req,res, next)=> { //pass in multer
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    imagePath: url + "/images/" + req.file.filename
-  })
+    imagePath: url + "/images/" + req.file.filename,
+    creator: req.userData.userId
+  });
   //save to mongo database as document
   post.save().then(result => {
     console.log(result)
@@ -57,10 +58,15 @@ multer({storage: storage}).single('image'), (req,res, next)=> { //pass in multer
         id: result._id
       }
   });
-  });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Creating a post failed!"
+    });
+  })
   //everyhting is ok and one resource for 200
 });
-  // updating value through put request
+  // updating value through put request. only user can update their post
   router.put("/:id", checkAuth,
   multer({ storage: storage }).single('image'), (req, res, next) => {
     //check if the file exists in the post list then store the url with the new file name
@@ -74,13 +80,23 @@ multer({storage: storage}).single('image'), (req,res, next)=> { //pass in multer
       _id: req.body.id,
       title: req.body.title,
       content: req.body.content,
-      imagePath: imagePath
+      imagePath: imagePath,
+      creator: req.userData.userId
     })
-    console.log(post);
-    //mongo db uodates object by id
-    Post.updateOne({_id: req.params.id}, post).then(result => {
-      console.log(result)
+
+    //mongo db updates object by post id & user login id
+    Post.updateOne({_id: req.params.id, creator: req.userData.userId}, post).then(result => {
+      // checking if it got modified & send response
+      if (result.nModified > 0) {
       res.status(200).json({message: 'Update Succesful!'});
+      } else{
+        res.status(401).json({message: "Not authorized"});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Couldn't update posts"
+      })
     })
   });
 
@@ -107,6 +123,11 @@ router.get('', (req, res, next) => {
         posts: fetchedPosts,
         maxPosts: count
       });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching posts failed!"
+      });
     });
   });
 
@@ -120,16 +141,30 @@ router.get("/:id", (req, res, next) => {
     }else{
       res.status(404).json({message: 'Post Not Found'});
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Fetching post failed!"
+    });
   });
 });
 
 //creating the delete feature. needs autorization to delete
 router.delete("/:id", checkAuth, (req,res,next) => {
   //using mongoose query to delete selected object from database
- Post.deleteOne({ _id: req.params.id }).then(result => {
-  console.log(result);
-  res.status(200).json({ message: "Post deleted!" });
- });
+ Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
+    // checking if it got deleted & send response
+    if (result.n> 0) {
+      res.status(200).json({message: 'Deletion Succesful!'});
+      } else{
+        res.status(401).json({message: "Not authorized"});
+      }
+ })
+ .catch(error => {
+  res.status(500).json({
+    message: "Fetching posts failed!"
+  });
+});
 
 });
 

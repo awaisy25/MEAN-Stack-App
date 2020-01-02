@@ -24,7 +24,7 @@ router.post("/signup", (req, res, next) => {
     });
   }).catch(err => {
     res.status(500).json({
-      error: err
+      message: "Invalid authentication credentials" //error message to send to front end
     })
   });
   });
@@ -55,12 +55,14 @@ router.post("/login", (req, res, next) => {
     const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 'secret_this_should_be_longer',
     {expiresIn: "1h"}); //expires in give the duration for how long this token last till it expires
     res.status(200).json({
-      token: token
+      token: token,
+      expiresIn: 3600, //3600 seconds (1hr) till it expires
+      userId: fetchedUser._id
     });
   })
   .catch(err => {
     return res.status(401).json({
-      message: "Auth failed"
+      message: "Invalid login"
     });
   })
 });

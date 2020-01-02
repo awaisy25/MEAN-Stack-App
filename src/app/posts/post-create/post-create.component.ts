@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -6,6 +6,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostsService } from '../posts.service';
 import { Post } from '../post.model';
 import { mimeType } from './mime-type.validator';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 // import component before using it
 @Component({
   // html tag to be put in html file
@@ -15,7 +17,7 @@ import { mimeType } from './mime-type.validator';
   // css file can have more than one
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent implements OnInit, OnDestroy {
   // variable
   enteredContent = '';
   enteredTitle = '';
@@ -26,11 +28,19 @@ export class PostCreateComponent implements OnInit {
   imagePreview: string | ArrayBuffer;
   private mode = 'create';
   private postId: string;
+  private autStatusSub: Subscription;
   // using event emitter to share data between components output allows listening from outside
 // creating a constructor for posts.service class
-  constructor(public postsService: PostsService, public route: ActivatedRoute) {
+  constructor(public postsService: PostsService, public route: ActivatedRoute,
+              public authService: AuthService) {
   }
   ngOnInit() {
+    // storing value for if user is authorized
+    this.autStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
     // using javascript object style to get form controls
     this.form = new FormGroup({
       // synchronous validators and choose what to validate
@@ -50,7 +60,8 @@ export class PostCreateComponent implements OnInit {
         // call back for getPost in post.services
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
-          this.post = {id: postData._id, title: postData.title, content: postData.content, imagePath: postData.imagePath};
+          this.post = {id: postData._id, title: postData.title,
+            content: postData.content, imagePath: postData.imagePath, creator: postData.creator};
           // using setvalue to override values in our form control
           this.form.setValue({
           title: this.post.title,
@@ -97,5 +108,7 @@ export class PostCreateComponent implements OnInit {
     // clears the input box when clicked on
     this.form.reset();
   }
-  // emitting the data
+  ngOnDestroy() {
+    this.autStatusSub.unsubscribe();
+  }
 }

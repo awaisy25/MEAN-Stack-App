@@ -27,6 +27,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
+  userId: string;
   private postsSub: Subscription;
 
   postService: PostsService;
@@ -40,6 +41,8 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     // default is 2 and 1
     this.postsService.getPosts(this.postsPerpage, this.currentPage);
+    // retriving user id to see if it is null
+    this.userId = this.authService.getUserId();
     // subscribe calls 3 different methods
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((postData: {posts: Post[], postCount: number}) => {
     // set loading wheel to false once the post is sent to the list
@@ -53,6 +56,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.authStatusSub = this.authService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
     });
   }
   // creating the delete function
@@ -61,6 +65,8 @@ export class PostListComponent implements OnInit, OnDestroy {
     // calling the delete post from post services file
     this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts(this.postsPerpage, this.currentPage);
+    }, () => { // if subscrive produces error then set loading spinner off
+      this.isLoading = false;
     });
   }
   // method for changing the number of posts shown at a time
