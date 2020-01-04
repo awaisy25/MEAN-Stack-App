@@ -4,6 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data-model';
 import { Subject } from 'rxjs';
 import { Route, Router } from '@angular/router';
+
+// importing environment varaible from environment files
+import { environment } from '../../environments/environment';
+// global variable for api url
+const BACKEND_URL = environment.apiUrl + '/user/';
 // class to connect to the node backend for logging in & signing up
 @Injectable({
   providedIn: 'root'
@@ -37,7 +42,7 @@ export class AuthService {
     // sending http post request to post new user
     // tslint:disable-next-line:object-literal-shorthand
     const authData: AuthData = {email: email, password: password};
-    this.http.post('http://localhost:3000/api/user/signup', authData).subscribe(() => {
+    this.http.post(BACKEND_URL + '/signup', authData).subscribe(() => {
       // tslint:disable-next-line:no-unused-expression
       this.router.navigate(['/']);
     }, error => {
@@ -68,7 +73,7 @@ autoAuthUser() {
 login(email: string, password: string) {
   // tslint:disable-next-line:object-literal-shorthand
   const authData: AuthData = {email: email, password: password};
-  this.http.post<{token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)
+  this.http.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + '/login', authData)
   // extracting the token from the post
   .subscribe(response => {
     const token = response.token;

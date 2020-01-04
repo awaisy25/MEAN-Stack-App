@@ -13,7 +13,7 @@ export class AuthGuards implements CanActivate {
     const isAuth = this.authService.getIsAuth();
     // based on authorization value from auth services return true or redirects back to login page
     if (!isAuth) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     }
     return true;
   }

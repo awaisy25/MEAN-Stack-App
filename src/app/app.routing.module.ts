@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuards } from './auth/auth-guard';
 // creating an array of Route paths
 // have list messages in main page and create message seperate page
@@ -16,9 +14,7 @@ const routes: Routes = [
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuards]},
   // setting parameter post id to extract specfific posts
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuards]},
-  // path for login and signup components
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'auth', loadChildren: './auth/auth.module#AuthModule'} // loading tha path where authentication routes are
 ];
 @NgModule({
   // importing router module into angular modules

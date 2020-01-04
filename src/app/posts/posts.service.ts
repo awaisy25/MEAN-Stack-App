@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+// importing environment varaible from environment files
+import { environment } from '../../environments/environment';
+// global variable for api url
+const BACKEND_URL = environment.apiUrl + '/posts/';
+
 @Injectable({providedIn: 'root'})
 export class PostsService {
   // can't acces from outside
@@ -17,7 +22,7 @@ export class PostsService {
     // backticks are dynamic ways of adding values to a string
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // using get request to retireve the data from node back end get it from posts object in app.js
-    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
+    this.http.get<{ message: string, posts: any, maxPosts: number }>(BACKEND_URL + queryParams)
     // pipe adds in multiple operators
     .pipe(map((postData) => {
       // map filters an array
@@ -50,7 +55,7 @@ export class PostsService {
   getPost(id: string) {
     // returning by using get request on http and making it a observable
     return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string }>
-    ('http://localhost:3000/api/posts/' + id);
+    (BACKEND_URL + id);
   }
 
   addPost(title: string, content: string, image: File) {
@@ -60,7 +65,7 @@ export class PostsService {
     postData.append('content', content);
     postData.append('image', image, title); // third arguement is passing in the title for the image
     // sending a post request to node
-    this.http.post<{message: string, post: Post}>('http://localhost:3000/api/posts', postData)
+    this.http.post<{message: string, post: Post}>(BACKEND_URL, postData)
     .subscribe((responseData) => {
       // creating a router navigation in the observable to navigate back to spinner component
       this.router.navigate(['/']);
@@ -92,7 +97,7 @@ export class PostsService {
     }
 
     // put request to update
-    this.http.put('http://localhost:3000/api/posts/' + id, postData)
+    this.http.put(BACKEND_URL + id, postData)
     .subscribe(response => {
       // creating a router navigation in the observable to navigate back to spinner component
       this.router.navigate(['/']);
@@ -100,6 +105,6 @@ export class PostsService {
   }
   // delete request
   deletePost(postId: string) {
-    return this.http.delete('http://localhost:3000/api/posts/' + postId);
+    return this.http.delete(BACKEND_URL + postId);
   }
 }

@@ -6,10 +6,10 @@
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
     </li>
     <li *ngIf="!userIsAuthenticated"> <!--header tab that uses angular routing to route to login page-->
-      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
     </li>
     <li *ngIf="!userIsAuthenticated"> <!--header tab that uses angular routing to route to sign up page-->
-      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
     </li>
     <li *ngIf="userIsAuthenticated"> <!--button to Logout after signing in-->
       <button mat-button (click)="onLogOut()">LogOut </button>
