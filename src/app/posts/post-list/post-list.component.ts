@@ -5,6 +5,8 @@ import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { PageEvent } from '@angular/material';
 import { AuthService } from '../../auth/auth.service';
+// search value from search component
+import { SearchComponent } from '../../header/searchbar.component';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -29,6 +31,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
   private postsSub: Subscription;
+  private searchValue: string;
 
   postService: PostsService;
 

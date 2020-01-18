@@ -14,12 +14,16 @@ import { ErrorInterceptor } from './error.interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module'; // ts file that holds all of the angular material modules
 import { PostsModule } from './posts/posts.module';
+import { SearchComponent } from './header/searchbar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,10 @@ import { PostsModule } from './posts/posts.module';
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
-    PostsModule
+    PostsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   // provide multiple http interceptions in our project
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -37,4 +44,6 @@ import { PostsModule } from './posts/posts.module';
   // entry components are components that are dynamic & rarely used
   entryComponents: [ErrorComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

@@ -1,6 +1,10 @@
 <mat-toolbar color='primary'>
-  <span><a routerLink="/">My Messages</a></span>
-  <span class="space"></span>
+  <span><a routerLink="/">Messages</a></span>
+  <!-- Search form -->
+  <span class="Smallspace"></span>
+  <!--putting in search bar component from searchbar html-->
+ <search-bar></search-bar>
+<span class="space"></span>
   <ul>
     <li *ngIf="userIsAuthenticated"> <!--header tab that uses angular routing to route to create post page-->
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>

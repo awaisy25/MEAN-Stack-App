@@ -8,6 +8,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
 @NgModule({ // declarations are for custom built componenets
   declarations: [
     PostListComponent,
