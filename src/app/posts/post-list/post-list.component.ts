@@ -22,6 +22,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   // ];
   // getting input from the app.component.ts
   posts: Post[] = [];
+  // filterTest =  'test';
+  SearchValue: string;
   isLoading = false;
   // pagination markup properties
   totalPosts = 0;
@@ -37,7 +39,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   private authStatusSub: Subscription;
  // use constructor to get instance of the PostService class from post.service.ts
-  constructor(public postsService: PostsService, private authService: AuthService) {
+  constructor(public postsService: PostsService, private authService: AuthService, private Searchbar: SearchComponent) {
   }
   // ng on init calls get posts from Post.services to get the list items
   ngOnInit() {
@@ -52,6 +54,11 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.totalPosts = postData.postCount;
     this.posts = postData.posts;
+    });
+    // subscribing from search bar component to get the search value component
+    this.Searchbar.getSearch().subscribe(Value => {
+      this.SearchValue = Value;
+      console.log(this.SearchValue);
     });
     // getting authorization value
     this.userIsAuthenticated = this.authService.getIsAuth();

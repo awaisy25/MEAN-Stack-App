@@ -1,6 +1,5 @@
 
     <mat-form-field>
-        <input matInput type='search'[(ngModel)]='inputValue'>
-
-        <button mat-raised-button color='accent' type='submit'>Search</button>
+        <input matInput type='search' #searchVal>
+        <button mat-raised-button color='accent' (click)='setValue(searchVal.value)'>Search</button>
     </mat-form-field>

@@ -7,12 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SearchFilter } from './searchFilter';
 
 
 @NgModule({ // declarations are for custom built componenets
   declarations: [
     PostListComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    SearchFilter
   ],
   imports: [
     CommonModule, // Common module adds common code like ngif

@@ -3,7 +3,7 @@
  <!--if conditional statment by sing ngif-->
 <mat-accordion multi='true' *ngIf="posts.length > 0 && !isLoading">
   <!--Structural Derivatives-->
- <mat-expansion-panel *ngFor="let post of posts">
+ <mat-expansion-panel *ngFor="let post of posts | filter:SearchValue">
    <div class="post-image"> <!--binding to get the image path from typescript -->
      <img [src]="post.imagePath" [alt]="post.title">
    </div>
