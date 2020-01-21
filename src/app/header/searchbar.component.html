@@ -1,5 +1,9 @@
 
     <mat-form-field>
-        <input matInput type='search' #searchVal>
-        <button mat-raised-button color='accent' (click)='setValue(searchVal.value)'>Search</button>
+      <div class="SearchField" >
+      <input matInput id= "search" type='search' #searchVal>
+      <button mat-raised-button color='accent' (click)='setValue(searchVal.value)'>Search</button>
+      <!--using onclick to set the input to null so it clears-->
+      <button mat-raised-button color='accent' (click)='Clear()' onclick="document.getElementById('search').value=''">Clear</button>
+      </div>
     </mat-form-field>

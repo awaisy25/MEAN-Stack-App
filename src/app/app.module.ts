@@ -16,7 +16,8 @@ import { AngularMaterialModule } from './angular-material.module'; // ts file th
 import { PostsModule } from './posts/posts.module';
 import { SearchComponent } from './header/searchbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchService } from './header/SearchService';
+
 
 @NgModule({
   declarations: [
@@ -33,12 +34,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AngularMaterialModule,
     PostsModule,
     ReactiveFormsModule,
-    FormsModule,
-    Ng2SearchPipeModule
+    FormsModule
   ],
   // provide multiple http interceptions in our project
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+              SearchService
   ],
   bootstrap: [AppComponent],
   // entry components are components that are dynamic & rarely used

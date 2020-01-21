@@ -5,8 +5,8 @@ import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { PageEvent } from '@angular/material';
 import { AuthService } from '../../auth/auth.service';
-// search value from search component
-import { SearchComponent } from '../../header/searchbar.component';
+import { SearchService } from '../../header/SearchService';
+
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -22,8 +22,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   // ];
   // getting input from the app.component.ts
   posts: Post[] = [];
-  // filterTest =  'test';
-  SearchValue: string;
   isLoading = false;
   // pagination markup properties
   totalPosts = 0;
@@ -32,14 +30,15 @@ export class PostListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
   userId: string;
+  // this is the filter value to filter the list component
+  SearchVal: string;
   private postsSub: Subscription;
-  private searchValue: string;
 
   postService: PostsService;
 
   private authStatusSub: Subscription;
  // use constructor to get instance of the PostService class from post.service.ts
-  constructor(public postsService: PostsService, private authService: AuthService, private Searchbar: SearchComponent) {
+  constructor(public postsService: PostsService, private authService: AuthService, private search: SearchService) {
   }
   // ng on init calls get posts from Post.services to get the list items
   ngOnInit() {
@@ -56,10 +55,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.posts = postData.posts;
     });
     // subscribing from search bar component to get the search value component
-    this.Searchbar.getSearch().subscribe(Value => {
-      this.SearchValue = Value;
-      console.log(this.SearchValue);
-    });
+    this.search.getFilterValue().subscribe(value => this.SearchVal = value);
     // getting authorization value
     this.userIsAuthenticated = this.authService.getIsAuth();
     // subscribing to authorization status to whether to show or not show the edit/delete button

@@ -4,12 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
+import { SearchComponent } from './header/searchbar.component';
 import { AuthGuards } from './auth/auth-guard';
 // creating an array of Route paths
 // have list messages in main page and create message seperate page
 const routes: Routes = [
   // Post list component is the home page
   { path: '', component: PostListComponent },
+  { path: '', component: SearchComponent},
   // can active prevents users from reaching to creating a post by redirecting them to login page
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuards]},
   // setting parameter post id to extract specfific posts

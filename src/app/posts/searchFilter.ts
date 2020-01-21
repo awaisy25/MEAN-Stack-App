@@ -16,6 +16,7 @@ export class SearchFilter implements PipeTransform {
       if (!posts || !filter) {
         return posts;
       }
-      return posts.filter(post => post.title === filter);
+      // having both values set to lower case just, so its case sensitive
+      return posts.filter(post => post.title.toLowerCase() === filter.toLowerCase());
  }
 }
