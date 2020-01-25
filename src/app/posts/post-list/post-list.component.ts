@@ -25,9 +25,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   isLoading = false;
   // pagination markup properties
   totalPosts = 0;
-  postsPerpage = 2;
+  postsPerpage = 5;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [1, 5, 10];
   userIsAuthenticated = false;
   userId: string;
   // this is the filter value to filter the list component

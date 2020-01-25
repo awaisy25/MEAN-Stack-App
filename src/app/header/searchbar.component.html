@@ -1,9 +1,9 @@
-
+<mat-toolbar color='primary'>
+  <p id='text'>Search:</p>
     <mat-form-field>
-      <div class="SearchField" >
       <input matInput id= "search" type='search' #searchVal>
       <button mat-raised-button color='accent' (click)='setValue(searchVal.value)'>Search</button>
       <!--using onclick to set the input to null so it clears-->
       <button mat-raised-button color='accent' (click)='Clear()' onclick="document.getElementById('search').value=''">Clear</button>
-      </div>
     </mat-form-field>
+  </mat-toolbar>

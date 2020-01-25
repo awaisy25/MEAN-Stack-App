@@ -22,3 +22,8 @@ mat-paginator {
   width: 60%;
   height: 80%;
 }
+
+.content {
+  max-width: 650px;
+  margin: auto;
+}

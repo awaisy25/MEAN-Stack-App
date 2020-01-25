@@ -1,3 +1,5 @@
+<div class="content">
+<search-bar></search-bar>
  <!--mat spinner ngif based on is loading value-->
  <mat-spinner *ngIf="isLoading"></mat-spinner>
  <!--if conditional statment by sing ngif-->
@@ -24,3 +26,4 @@
 *ngIf="posts.length > 0"></mat-paginator>
 <!-- else conditione since its outside the selected tag-->
 <p class='info-text mat-body-1' *ngIf="posts.length <= 0 && !isLoading">No Posts added yet</p>
+</div>

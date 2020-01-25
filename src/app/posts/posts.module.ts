@@ -8,13 +8,15 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SearchFilter } from './searchFilter';
+import { SearchComponent } from '../header/searchbar.component';
 
 
 @NgModule({ // declarations are for custom built componenets
   declarations: [
     PostListComponent,
     PostCreateComponent,
-    SearchFilter
+    SearchFilter,
+    SearchComponent
   ],
   imports: [
     CommonModule, // Common module adds common code like ngif

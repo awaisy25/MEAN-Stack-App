@@ -1,0 +1,15 @@
+mat-form-field {
+  position: absolute;
+  right: 740px;
+  border: black;
+}
+button {
+ position: relative;
+ top: 8px;
+  margin-left: 10px;
+
+}
+#text {
+  font-size: 130%;
+  margin-top: 40px;
+}

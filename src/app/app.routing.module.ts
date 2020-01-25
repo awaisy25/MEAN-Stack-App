@@ -11,7 +11,6 @@ import { AuthGuards } from './auth/auth-guard';
 const routes: Routes = [
   // Post list component is the home page
   { path: '', component: PostListComponent },
-  { path: '', component: SearchComponent},
   // can active prevents users from reaching to creating a post by redirecting them to login page
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuards]},
   // setting parameter post id to extract specfific posts
