@@ -1,7 +1,9 @@
+
 //bcrypt is the encryption tools in javascript
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const User = require("../model/user");
+const nodemailer = require("nodemailer");
 // middle ware for creating a new user and exporting it as an object
 exports.createUser = (req, res, next) => {
   //using hash function to hash the passcode, higher the number then more complex the hash value is
@@ -18,6 +20,13 @@ exports.createUser = (req, res, next) => {
       message: 'User created',
       result: result
     });
+  //sending an email to the user
+  SendMail(req.body.email, info => {
+    console.log("Email has been sent");
+    res.json({
+      info: info
+    });
+  })
   }).catch(err => {
     res.status(500).json({
       message: "Invalid authentication credentials" //error message to send to front end
@@ -61,4 +70,25 @@ exports.userLogin = (req, res, next) => {
       message: "Invalid login"
     });
   })
+}
+
+//function for sending a email to new user
+async function SendMail(customer, callback) {
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'awais.t.hussain@gmail.com',
+      //password will be hidden in public view
+      pass: '####'
+    }
+  });
+  let mailOptions=  {
+   from: "awais.t.hussain@gmail.com",
+   // user email that will be provided from req.body.email
+   to: customer,
+   subject: "Messaging App",
+   html: '<h1>Thanks for signing up</h1>'
+  };
+  let info = await transporter.sendMail(mailOptions)
+  callback(info)
 }
