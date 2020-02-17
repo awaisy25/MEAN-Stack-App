@@ -7,14 +7,19 @@ const path = require("path");
 
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
-
-
+const PythonRoutes = require("./routes/pythonData")
+//this is for executing python script
+//const spawn = require('child_process').spawn;
+//py = spawn('python', ['../Backend/python/MessageStatistics.py']);
+// const py = require("./python/pythonData");
 // assigning app to express is in chare of incoming messages and outputting messages
 // it is the middleware of everything
 const app = express();
 //this will parse json data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+
+
 //middle ware to allow access to fetch images from images folder
 app.use("/images", express.static(path.join("backend/images")));
 //creating the mongodb database connection
@@ -40,6 +45,7 @@ app.use((req,res, next) => {
 //using the route navigation from post routes, putting path in as arguement
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/python", PythonRoutes)
 
 //exporting these features by exporting the app, the features come with it
 module.exports = app;
