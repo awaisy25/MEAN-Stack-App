@@ -6,6 +6,9 @@
     <li *ngIf="userIsAuthenticated"> <!--header tab that uses angular routing to route to create post page-->
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
     </li>
+    <li *ngIf="userIsAuthenticated"> <!--header tab for going to statistical page-->
+      <a mat-button routerLink="/stats" routerLinkActive="mat-accent">Statistics</a>
+    </li>
     <li *ngIf="!userIsAuthenticated"> <!--header tab that uses angular routing to route to login page-->
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
     </li>

@@ -1,5 +1,5 @@
 mat-form-field {
-  position: absolute;
+  position: sticky;
   right: 740px;
   border: black;
 }

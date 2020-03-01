@@ -16,13 +16,15 @@ import { AngularMaterialModule } from './angular-material.module'; // ts file th
 import { PostsModule } from './posts/posts.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SearchService } from './header/SearchService';
+import { SentimenalComponent } from './statistics/sentimental.stats';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
+    SentimenalComponent
   ],
   imports: [
     BrowserModule,

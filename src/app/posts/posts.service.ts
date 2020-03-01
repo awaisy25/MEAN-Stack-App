@@ -51,7 +51,7 @@ export class PostsService {
     // properly returning the subject
     return this.postsUpdated.asObservable();
   }
-// get post for edit page not from REST Api
+// get post for edit page
   getPost(id: string) {
     // returning by using get request on http and making it a observable
     return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string }>
