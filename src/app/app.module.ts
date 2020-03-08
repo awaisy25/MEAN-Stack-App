@@ -17,6 +17,7 @@ import { PostsModule } from './posts/posts.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SearchService } from './header/SearchService';
 import { SentimenalComponent } from './statistics/sentimental.stats';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SentimenalComponent } from './statistics/sentimental.stats';
     AngularMaterialModule,
     PostsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ],
   // provide multiple http interceptions in our project
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

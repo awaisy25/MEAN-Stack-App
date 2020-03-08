@@ -8,6 +8,7 @@ import { Post } from '../post.model';
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
+import { StatsService } from '../../statistics/stats.service';
 // import component before using it
 @Component({
   // html tag to be put in html file
@@ -32,7 +33,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   // using event emitter to share data between components output allows listening from outside
 // creating a constructor for posts.service class
   constructor(public postsService: PostsService, public route: ActivatedRoute,
-              public authService: AuthService) {
+              public authService: AuthService, public statsService: StatsService) {
   }
   ngOnInit() {
     // storing value for if user is authorized

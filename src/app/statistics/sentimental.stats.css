@@ -1,0 +1,12 @@
+
+
+.chart{
+  margin:auto;
+  width: 50%;
+}
+mat-toolbar {
+  position: relative;
+  left: 70px;
+  width: 550px;
+  margin-top:25px;
+}
