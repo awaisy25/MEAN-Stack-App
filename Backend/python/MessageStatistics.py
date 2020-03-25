@@ -9,7 +9,7 @@ import sys
 import json
 from collections import Counter
 #connecting with ssl and extracting data
-client = pymongo.MongoClient("mongodb+srv://awais:dragonballz1@mstackcluster-hwzch.mongodb.net/test?retryWrites=true&w=majority"
+client = pymongo.MongoClient("mongodb+srv://awais:#####@mstackcluster-hwzch.mongodb.net/test?retryWrites=true&w=majority"
 , ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
 db = client["angular-Data"]
 collection = db["posts"]
