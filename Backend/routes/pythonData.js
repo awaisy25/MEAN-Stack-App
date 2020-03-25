@@ -21,7 +21,7 @@ function PythonExecute(callback) {
 router.get('', (req, res) =>  {
   PythonExecute(() => {
   //Once python shell runs and completes retrive the data from mongodb
- MongoClient.connect('mongodb+srv://awais:dragonballz1@mstackcluster-hwzch.mongodb.net/angular-Data?retryWrites=true&w=majority', (err, db) => {
+ MongoClient.connect('mongodb+srv://awais:######@mstackcluster-hwzch.mongodb.net/angular-Data?retryWrites=true&w=majority', (err, db) => {
  if(err){
    res.status(500).json({message: "Connecting to Database failed"});
  }

@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 //middle ware to allow access to fetch images from images folder
 app.use("/images", express.static(path.join("backend/images")));
 //creating the mongodb database connection
-mongoose.connect('mongodb+srv://awais:dragonballz1@mstackcluster-hwzch.mongodb.net/angular-Data?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://awais:######@mstackcluster-hwzch.mongodb.net/angular-Data?retryWrites=true&w=majority')
 .then(() =>{
   console.log("Connected to database");
 })
