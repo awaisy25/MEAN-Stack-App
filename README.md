@@ -15,7 +15,7 @@ App.js and mongoose(mongodb) connection are in the Backend folder. images folder
 # Project files
 Main source code are in the src -> app folder. App main module is in the folder. The other components are in header & posts folder. One Python file located in Backend -> python folder
 
-# Prequirestes
+# Prerequisetes
 - Angular CLI installed
 - Node installed https://nodejs.org/en/download/
 - Mongodb account set up
